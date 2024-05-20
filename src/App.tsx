@@ -1,9 +1,10 @@
 import gif from "@/assets/milk-and-mocha.gif";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import CuteButton from "./components/ui/cute-button";
 import { TextGenerateEffect } from "./components/ui/text-generate-effect";
 import { Spinner } from "./components/ui/spinner";
 import clsx from "clsx";
+import yay from "@/assets/yay.mp3";
 
 const yesImages = [
   "yes-0.jpeg",
@@ -25,6 +26,8 @@ function App() {
   const isYes = useMemo(() => selectedAnswer === "yes", [selectedAnswer]);
   const isNo = useMemo(() => selectedAnswer === "no", [selectedAnswer]);
 
+  const yaySoundEffect = new Audio(yay);
+
   const handleClick = (answer: string) => {
     setIsLoading(true);
     setSelectedAnswer(answer);
@@ -35,6 +38,12 @@ function App() {
       setIsLoading(false);
     }, 1000);
   };
+
+  useEffect(() => {
+    if (!isLoading && selectedAnswer === "yes") {
+      yaySoundEffect.play();
+    }
+  }, [isLoading, selectedAnswer]);
 
   return (
     <main
