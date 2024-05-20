@@ -18,6 +18,8 @@ const yesImages = [
   "yes-8.jpeg",
 ];
 
+const yaySoundEffect = new Audio(yay);
+
 function App() {
   const [selectedAnswer, setSelectedAnswer] = useState<string | undefined>();
   const [isLoading, setIsLoading] = useState(false);
@@ -25,8 +27,6 @@ function App() {
   const noAnswer = selectedAnswer === undefined;
   const isYes = useMemo(() => selectedAnswer === "yes", [selectedAnswer]);
   const isNo = useMemo(() => selectedAnswer === "no", [selectedAnswer]);
-
-  const yaySoundEffect = useMemo(() => new Audio(yay), []);
 
   useEffect(() => {
     const resetState = () => {
@@ -61,7 +61,7 @@ function App() {
     if (!isLoading && selectedAnswer === "yes") {
       yaySoundEffect.play();
     }
-  }, [isLoading, selectedAnswer, yaySoundEffect]);
+  }, [isLoading, selectedAnswer]);
 
   return (
     <main
