@@ -3,6 +3,7 @@ import { useMemo, useState } from "react";
 import CuteButton from "./components/ui/cute-button";
 import { TextGenerateEffect } from "./components/ui/text-generate-effect";
 import { Spinner } from "./components/ui/spinner";
+import clsx from "clsx";
 
 const yesImages = [
   "yes-0.jpeg",
@@ -36,7 +37,11 @@ function App() {
   };
 
   return (
-    <main className="container m-auto flex flex-col gap-4">
+    <main
+      className={clsx({
+        "bg-bsod": isNo && !isLoading,
+        "container m-auto flex flex-col gap-4": noAnswer,
+      })}>
       {noAnswer && !isLoading && (
         <>
           <TextGenerateEffect className="text-4xl font-bold text-rose-700" words="Do you wuv me?" />

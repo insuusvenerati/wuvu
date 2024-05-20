@@ -19,7 +19,10 @@ const config = {
     },
     extend: {
       backgroundImage: {
-        bsod: "url('/bsod.png')",
+        bsodImage: "url('/bsod.png')",
+      },
+      backgroundColor: {
+        bsod: "hsl(240,100,33)",
       },
       colors: {
         border: "hsl(var(--border))",
