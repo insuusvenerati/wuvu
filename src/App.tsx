@@ -28,6 +28,25 @@ function App() {
 
   const yaySoundEffect = new Audio(yay);
 
+  const resetState = () => {
+    setSelectedAnswer(undefined);
+    setIsLoading(false);
+    setYesImageIndex(0);
+  };
+
+  const handleKeyDown = () => {
+    if (isNo && !isLoading) {
+      resetState();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isNo, isLoading]);
+
   const handleClick = (answer: string) => {
     setIsLoading(true);
     setSelectedAnswer(answer);
@@ -68,7 +87,7 @@ function App() {
       {isLoading && <Spinner />}
       {isYes && !isLoading && (
         <div>
-          <img src={yesImages[yesImageIndex]} alt="yay" className="w-screen h-screen" />{" "}
+          <img src={yesImages[yesImageIndex]} alt="yay" className="w-screen h-screen" />
         </div>
       )}
       {isNo && !isLoading && (
