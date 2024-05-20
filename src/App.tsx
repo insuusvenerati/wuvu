@@ -26,21 +26,20 @@ function App() {
   const isYes = useMemo(() => selectedAnswer === "yes", [selectedAnswer]);
   const isNo = useMemo(() => selectedAnswer === "no", [selectedAnswer]);
 
-  const yaySoundEffect = new Audio(yay);
-
-  const resetState = () => {
-    setSelectedAnswer(undefined);
-    setIsLoading(false);
-    setYesImageIndex(0);
-  };
-
-  const handleKeyDown = () => {
-    if (isNo && !isLoading) {
-      resetState();
-    }
-  };
+  const yaySoundEffect = useMemo(() => new Audio(yay), []);
 
   useEffect(() => {
+    const resetState = () => {
+      setSelectedAnswer(undefined);
+      setIsLoading(false);
+      setYesImageIndex(0);
+    };
+
+    const handleKeyDown = () => {
+      if (isNo && !isLoading) {
+        resetState();
+      }
+    };
     window.addEventListener("keydown", handleKeyDown);
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
@@ -62,7 +61,7 @@ function App() {
     if (!isLoading && selectedAnswer === "yes") {
       yaySoundEffect.play();
     }
-  }, [isLoading, selectedAnswer]);
+  }, [isLoading, selectedAnswer, yaySoundEffect]);
 
   return (
     <main
